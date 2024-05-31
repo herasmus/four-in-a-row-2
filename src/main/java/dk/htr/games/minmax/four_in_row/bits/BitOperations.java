@@ -2,9 +2,18 @@ package dk.htr.games.minmax.four_in_row.bits;
 
 import dk.htr.games.minmax.four_in_row.exceptions.BitException;
 
-import static dk.htr.games.minmax.four_in_row.board.BoardState.ERASE_BYTE_MASK;
-
 public class BitOperations {
+    public static long[] ERASE_BYTE_MASK = new long[7];
+
+    static {
+        ERASE_BYTE_MASK[0] = 0xFF_FF_FF_FF_FF_FF_00L;
+        ERASE_BYTE_MASK[1] = 0xFF_FF_FF_FF_FF_00_FFL;
+        ERASE_BYTE_MASK[2] = 0xFF_FF_FF_FF_00_FF_FFL;
+        ERASE_BYTE_MASK[3] = 0xFF_FF_FF_00_FF_FF_FFL;
+        ERASE_BYTE_MASK[4] = 0xFF_FF_00_FF_FF_FF_FFL;
+        ERASE_BYTE_MASK[5] = 0xFF_00_FF_FF_FF_FF_FFL;
+        ERASE_BYTE_MASK[6] = 0x00_FF_FF_FF_FF_FF_FFL;
+    }
 
     // Create a mask: Shiftamount 3 => 0000 0111
     public static int getNTimesOneRightMask(int shiftAmount) {
