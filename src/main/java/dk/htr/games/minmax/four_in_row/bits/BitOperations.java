@@ -46,14 +46,14 @@ public class BitOperations {
     }
 
     public static int readByte(long input, int byteNr) {
-        long rightShifted = input >> ((byteNr - 1) * 8);
+        long rightShifted = input >> (byteNr * 8);
         return (int)(rightShifted & 0b11111111);
     }
 
-    public static long writeByte(long input, int byteNr, int move) {
-        int nfOfBitsToShift = (move - 1) * 8;
-        long leftShifted = (long) byteNr << nfOfBitsToShift;
-        input = input & ERASE_BYTE_MASK[move - 1];
+    public static long writeByte(long input, int columnValue, int byteNr) {
+        int nfOfBitsToShift = byteNr * 8;
+        long leftShifted = (long) columnValue << nfOfBitsToShift;
+        input = input & ERASE_BYTE_MASK[byteNr];
         return input | leftShifted;
     }
 }

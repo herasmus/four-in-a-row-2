@@ -61,23 +61,23 @@ public class BitOperationsTest {
         final long board = 0b00111010_00000001_00111110_10000000_01001101L;
 
         int expected = 0b01001101;
-        int got = readByte(board, 1);
+        int got = readByte(board, 0);
         assertEquals(expected, got);
 
         expected = 0b10000000;
-        got = readByte(board, 2);
+        got = readByte(board, 1);
         assertEquals(expected, got);
 
         expected = 0b00111110;
-        got = readByte(board, 3);
+        got = readByte(board, 2);
         assertEquals(expected, got);
 
         expected = 0b00000001;
-        got = readByte(board, 4);
+        got = readByte(board, 3);
         assertEquals(expected, got);
 
         expected = 0b00111010;
-        got = readByte(board, 5);
+        got = readByte(board, 4);
         assertEquals(expected, got);
     }
 
@@ -86,7 +86,7 @@ public class BitOperationsTest {
     public void writeColumn() {
         final long board = 0b00111010_00000001_00111110_10000000_01001101L;
         long expected = 0b00111010_10100110_00111110_10000000_01001101L;
-        long got = writeByte(board, 0b10100110, 4);
+        long got = writeByte(board, 0b10100110, 3);
         assertEquals(expected, got);
     }
 }
