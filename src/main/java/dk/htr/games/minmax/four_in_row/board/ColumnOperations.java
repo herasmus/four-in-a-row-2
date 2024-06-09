@@ -40,36 +40,6 @@ public class ColumnOperations {
     private static boolean hasEmptyPattern(int column) {
         return (column & COLUMN_EMPTY_FULL_MASK) == COLUMN_EMPTY_PATTERN;
     }
-    protected static boolean validEmptyColumn(int column) {
-        if(hasEmptyPattern(column)) {
-            int withoutPattern = column & 0b00111111;
-            if(withoutPattern != 0) return false;
-        }
-        return true;
-    }
-
-    private static boolean isValidColumn(int column, int height) {
-        if(isEmpty(column)) {
-            return validEmptyColumn(column);
-        } /*else if (fullColumn) {
-            return false;
-        } else {
-            return false;
-        }
-
-
-        boolean valid = true;
-        if(column == 0b0000_0000 || column == 0b0111_1111 ) {
-            valid = false;
-        } else if(!) {
-            valid = false;
-        }
-        if(!valid) {
-            String columnBinaryString =Integer.toBinaryString(column);
-           // lkjn
-        } */
-        return false;
-    }
 
     private static void addPartlyFilledColumn(int column,
                                               GameDimensions dimensions,
@@ -80,7 +50,6 @@ public class ColumnOperations {
         do {
             if(bitNumber <= dimensions.nrOfRows()) {
                 int index = dimensions.nrOfRows() - bitNumber;
-                assert isValidColumn(column, dimensions.nrOfRows()) : "Invalid column";
                 assert (index < 7 && index >= 0) : "Invalid index: " + index;
                 rowStrings[index] += ". ";
             }
@@ -127,6 +96,7 @@ public class ColumnOperations {
     public static void addColumnStr(int column,
                                     GameDimensions dimensions,
                                     String[] rowStrings) throws GameException {
+        if(!ValidColumnChecker.isValidColumn(column, dimensions.nrOfRows())) throw new GameException("Invalid column");
         if (isEmpty(column)) {
             addEmptyColumn(dimensions, rowStrings);
         } else if (isFull(column)) {
