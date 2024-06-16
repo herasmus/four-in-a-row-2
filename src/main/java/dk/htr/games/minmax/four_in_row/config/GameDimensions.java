@@ -1,4 +1,4 @@
-package dk.htr.games.minmax.four_in_row;
+package dk.htr.games.minmax.four_in_row.config;
 
 public record GameDimensions(int nrOfColumns, int nrOfRows, int lengthToWin) {
 }

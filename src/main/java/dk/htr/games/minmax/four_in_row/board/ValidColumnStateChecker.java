@@ -59,12 +59,12 @@ public class ValidColumnChecker {
             fourRows[i] = false;
             total++;
         }
-        for(int i = 0b11000000; i <= 0b11101111; i++) {
-            fourRows[i] = false;
+        for(int i = 0b11000000; i <= 0b11001111; i++) {
+            fourRows[i] = true;
             total++;
         }
-        for(int i = 0b11110000; i <= 0b11111111; i++) {
-            fourRows[i] = true;
+        for(int i = 0b11010000; i <= 0b11111111; i++) {
+            fourRows[i] = false;
             total++;
         }
 
@@ -72,6 +72,8 @@ public class ValidColumnChecker {
     }
 
     private static void initSixRows() {
+        int total = 0;
+
         sixRows[0b00000000] = false;
 
         for(int i = 0b00000001; i < 0b00011111; i++) {
@@ -136,6 +138,7 @@ public class ValidColumnChecker {
         sixRows[0b00100110] = false;
         sixRows[0b00100111] = false;
 
+        if(total != 256) throw new RuntimeException("Fatal error in initialization");
     }
 
     public static boolean isValidColumn(int column, int numberOfRows) throws GameException {
@@ -144,7 +147,7 @@ public class ValidColumnChecker {
         } else if(numberOfRows == 6) {
             return sixRows[column];
         } else {
-            throw new GameException("Doesn't handle nr of rows less than 4");
+            throw new GameException("Doesn't handle nr of rows less other than 4 and 6 at the moment");
         }
     }
 
