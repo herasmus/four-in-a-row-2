@@ -1,11 +1,23 @@
 package dk.htr.games.minmax.four_in_row.board;
 
-import dk.htr.games.minmax.four_in_row.GameDimensions;
+import dk.htr.games.minmax.four_in_row.config.GameDimensions;
 import dk.htr.games.minmax.four_in_row.exceptions.GameException;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import static dk.htr.games.minmax.four_in_row.bits.BitOperations.getBit;
 
+@Getter
+@Setter
+@RequiredArgsConstructor
+@Component
 public class ColumnOperations {
+    @Autowired
+    private final GameDimensions dimensions;
+
     private final static String underflowExcStr = "Underflow: Column: %s  String array length: %d  Bitnumber:  %d  Index: %d";
     private final static String overflowExcStr  = "Overflow:  Column: %s  String array length: %d  Bitnumber:  %d  Index: %d";
 
@@ -41,15 +53,13 @@ public class ColumnOperations {
         return (column & COLUMN_EMPTY_FULL_MASK) == COLUMN_EMPTY_PATTERN;
     }
 
-    private static void addPartlyFilledColumn(int column,
-                                              GameDimensions dimensions,
-                                              String[] rowStrings) throws GameException {
+    private void addPartlyFilledColumn(int column, String[] rowStrings) throws GameException {
         int bitNumber = 7;
         int fillerBitValue = getBit(column, bitNumber);
         int bitValue;
         do {
-            if(bitNumber <= dimensions.nrOfRows()) {
-                int index = dimensions.nrOfRows() - bitNumber;
+            if(bitNumber <= dimensions.getNrOfRows()) {
+                int index = dimensions.getNrOfRows() - bitNumber;
                 assert (index < 7 && index >= 0) : "Invalid index: " + index;
                 rowStrings[index] += ". ";
             }
@@ -60,14 +70,14 @@ public class ColumnOperations {
         do {
             bitValue = getBit(column, bitNumber);
             char counterChar = bitValue == 1 ? 'x' : 'o';
-            rowStrings[dimensions.nrOfRows() - bitNumber] += "" + counterChar + ' ';
+            rowStrings[dimensions.getNrOfRows() - bitNumber] += "" + counterChar + ' ';
             bitNumber--;
         } while(bitNumber > 0);
     }
 
-    protected static int getNumberOfCounters(GameDimensions dimensions, int column) throws GameException {
+    protected int getNumberOfCounters(int column) throws GameException {
         if(isEmpty(column)) return 0;
-        if(isFull(column))  return dimensions.nrOfRows();
+        if(isFull(column))  return dimensions.getNrOfRows();
         int bitNumber = 7;
         int fillerBitValue = getBit(column, bitNumber);
         int bitValue;
@@ -79,30 +89,28 @@ public class ColumnOperations {
         return bitNumber;
     }
 
-    private static void addEmptyColumn(GameDimensions dimensions, String[] rowStrings) {
-        for (int rowNumber = 0; rowNumber < dimensions.nrOfRows(); rowNumber++) {
+    private void addEmptyColumn(String[] rowStrings) {
+        for (int rowNumber = 0; rowNumber < dimensions.getNrOfRows(); rowNumber++) {
             rowStrings[rowNumber] += ". ";
         }
     }
 
-    private static void addFullColumn(int column, GameDimensions dimensions, String[] rowStrings) {
-        for (int rowNumber = 0; rowNumber < dimensions.nrOfRows(); rowNumber++) {
-            int columnBit = getBit(column, dimensions.nrOfRows() - rowNumber);
+    private void addFullColumn(int column, String[] rowStrings) {
+        for (int rowNumber = 0; rowNumber < dimensions.getNrOfRows(); rowNumber++) {
+            int columnBit = getBit(column, dimensions.getNrOfRows() - rowNumber);
             char valChar = columnBit == 1 ? 'x' : 'o';
             rowStrings[rowNumber] += "" + valChar + ' ';
         }
     }
 
-    public static void addColumnStr(int column,
-                                    GameDimensions dimensions,
-                                    String[] rowStrings) throws GameException {
-        if(!ValidColumnChecker.isValidColumn(column, dimensions.nrOfRows())) throw new GameException("Invalid column");
-        if (isEmpty(column)) {
-            addEmptyColumn(dimensions, rowStrings);
-        } else if (isFull(column)) {
-            addFullColumn(column, dimensions, rowStrings);
+    public void addColumnStr(int columnState, String[] rowStrings) throws GameException {
+        if(!ValidColumnStateChecker.isValidColumnState(columnState, dimensions.getNrOfRows())) throw new GameException("Invalid column");
+        if (isEmpty(columnState)) {
+            addEmptyColumn(rowStrings);
+        } else if (isFull(columnState)) {
+            addFullColumn(columnState, rowStrings);
         } else {
-            addPartlyFilledColumn(column, dimensions, rowStrings);
+            addPartlyFilledColumn(columnState, rowStrings);
         }
     }
 }

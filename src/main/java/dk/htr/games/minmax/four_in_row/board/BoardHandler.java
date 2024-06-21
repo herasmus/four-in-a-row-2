@@ -1,16 +1,24 @@
 package dk.htr.games.minmax.four_in_row.board;
 
-import dk.htr.games.minmax.four_in_row.GameDimensions;
+import dk.htr.games.minmax.four_in_row.config.GameDimensions;
+import dk.htr.games.minmax.four_in_row.exceptions.BoardStateException;
 import dk.htr.games.minmax.four_in_row.exceptions.GameException;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import static dk.htr.games.minmax.four_in_row.bits.BitOperations.*;
 import static dk.htr.games.minmax.four_in_row.board.ColumnOperations.*;
 
+@Setter
+@Getter
+@RequiredArgsConstructor
+@Component
 public class BoardHandler {
-    private static GameDimensions dimensions;
-    public static void setGameSettings(GameDimensions dim) {
-        dimensions = dim;
-    }
+    private final GameDimensions dimensions;
+    private final ColumnOperations columnOperations;
 
     protected static int moveBluePlayer(int column) {
         if(isEmpty(column)) {
@@ -22,39 +30,48 @@ public class BoardHandler {
         return column;
     }
 
-    protected static int moveRedPlayer(int column) throws GameException {
-        int nrOfCounters = getNumberOfCounters(dimensions, column);
+    private int moveRedPlayer(int columnState) throws GameException {
+        int nrOfCounters = columnOperations.getNumberOfCounters(columnState);
 
         if(nrOfCounters == 0) {
             return 0b01111110;
-        } else if (nrOfCounters == dimensions.nrOfRows() - 1) {
+        } else if (nrOfCounters == dimensions.getNrOfRows() - 1) {
+
+
             // Full mask | with (current first bit and new 6th bit (which is 0))
-            return 0b11000000 | (column & 0b00011111);
+            return 0b11000000 | (columnState & 0b00001111);
         } else {
             int mask = getNTimesOneRightMask(nrOfCounters - 1);
-            column = column & mask;
+            columnState = columnState & mask;
             // No need to turn bit nrOfCounters off - the mask takes care of that
             // Set the filler bits - for red they are always 1
             for(int i = (nrOfCounters + 1); i < 7; i++) {
-                column = turnOn(column, i);
+                columnState = turnOn(columnState, i);
             }
-            return column;
+            return columnState;
         }
     }
 
-    public static long move(long board, int move, boolean bluePlayer) throws GameException {
-        int column = readByte(board, move);
-        if(bluePlayer) {
-            column = moveBluePlayer(column);
-        } else {
-            column = moveRedPlayer(column);
+    public int moveColumn(int columnState, boolean isBluePlayer) throws GameException {
+        int newColumnState;
+        if(!ValidColumnStateChecker.isValidColumnState(columnState, dimensions.getNrOfRows())) {
+            throw new BoardStateException("Invalid Column state: " + columnState);
         }
-        board = writeByte(board, column, move);
-        return board;
+        if(isBluePlayer) {
+            newColumnState = moveBluePlayer(columnState);
+        } else {
+            newColumnState = moveRedPlayer(columnState);
+        }
+        return newColumnState;
+    }
+
+    public long move(long board, int move, boolean isBluePlayer) throws GameException {
+        int columnState = moveColumn(readByte(board, move), isBluePlayer);
+        return writeByte(board, columnState, move);
     }
 
     /**
-     * Return available slots as a bitpattern:
+     * Return available slots as a bit-pattern:
      *
      * Example: Slot 1 and 4 is free will yield:
      *
@@ -63,10 +80,10 @@ public class BoardHandler {
      * @param board
      * @return
      */
-    public static byte getAvailableSlots(long board) {
+    public byte getAvailableSlots(long board) {
         byte res = 0;
         byte shiftBit = 1;
-        for(int columnNumber = 1; columnNumber <= dimensions.nrOfColumns(); columnNumber++) {
+        for(int columnNumber = 1; columnNumber <= dimensions.getNrOfColumns(); columnNumber++) {
             int column = (int)board & 0b11111111;
             if(!isFull(column)) {
                 res |= shiftBit;

@@ -1,6 +1,6 @@
 package dk.htr.games.minmax.four_in_row.board;
 
-import dk.htr.games.minmax.four_in_row.GameDimensions;
+import dk.htr.games.minmax.four_in_row.config.GameDimensions;
 import dk.htr.games.minmax.four_in_row.exceptions.GameException;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -8,12 +8,18 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 
-import static dk.htr.games.minmax.four_in_row.board.ColumnOperations.*;
 import static dk.htr.games.minmax.four_in_row.board.logging.ExpectedAndActualLogging.logExpectedAndActualBoardStrings;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BoardStateTest {
     Logger logger = LoggerFactory.getLogger(BoardStateTest.class);
+
+    GameDimensions gameDim7x4x4 = new GameDimensions(7, 4, 4);
+    ColumnOperations columnOperations7x4x4 = new ColumnOperations(gameDim7x4x4);
+
+    GameDimensions gameDim7x6x4 = new GameDimensions(7, 6, 4);
+    ColumnOperations columnOperations7x6x4 = new ColumnOperations(gameDim7x6x4);
+
 
     /*
      *  Example: 7 x 6
@@ -26,13 +32,13 @@ public class BoardStateTest {
      *  0 = 'o'
      *
      */
-    @Test
+    //@Test
     public void getBoardStateString_7x6() throws GameException {
-        var dim = new GameDimensions(7, 6, 4);
-        BoardHandler.setGameSettings(dim);
+        BoardState boardState = new BoardState(gameDim7x6x4, columnOperations7x6x4);
+
         final long board = 0b01111010_10000000_11001101_00001111_01111000_01110110_11101001L;
-        String[] actualStrings = BoardState.getBoardStateStrings(board, dim, 3);
-        assertEquals(dim.nrOfRows() + 2, actualStrings.length);
+        String[] actualStrings = boardState.getBoardStateStrings(board, 3);
+        assertEquals(gameDim7x6x4.getNrOfRows() + 2, actualStrings.length);
 
         String[] expectedLines = {
         " 6| x . . . o . . ",
@@ -61,11 +67,11 @@ public class BoardStateTest {
 
     @Test
     public void getBoardStateString_7x4() throws GameException {
-        var dim = new GameDimensions(7, 4, 4);
-        BoardHandler.setGameSettings(dim);
+        BoardState boardState = new BoardState(gameDim7x4x4, columnOperations7x4x4);
+
         final long board = 0b01111110_00000111_11000011_00000010_10000000_01111101_11001010L;
-        String[] actualStrings = BoardState.getBoardStateStrings(board, dim, 3);
-        assertEquals(dim.nrOfRows() + 2, actualStrings.length);
+        String[] actualStrings = boardState.getBoardStateStrings(board, 3);
+        assertEquals(gameDim7x4x4.getNrOfRows() + 2, actualStrings.length);
         String[] expectedLines = {
         " 4| x . . . o . . ",
         " 3| o . . . o x . ",

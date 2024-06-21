@@ -5,65 +5,95 @@ import dk.htr.games.minmax.four_in_row.board.ColumnOperations;
 import dk.htr.games.minmax.four_in_row.config.GameDimensions;
 import dk.htr.games.minmax.four_in_row.exceptions.GameException;
 import org.junit.jupiter.api.Test;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+
+import static dk.htr.games.minmax.four_in_row.board.BinaryStringHelper.columnStateToBinaryString;
+import static dk.htr.games.minmax.four_in_row.board.boardhandler.BoardConstants.EMPTY_COLUMN;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class BoardHandlerMoveRedPlayerTest {
-    // 2x4x3 board
-    GameDimensions gameDim2x4x3 = new GameDimensions(2, 4, 3);
-    ColumnOperations columnOperations2x4x3 = new ColumnOperations(gameDim2x4x3);
+public class BoardHandler_MoveRedPlayer_FourRows_Test {
+    private final Logger logger = LoggerFactory.getLogger(BoardHandler.class);
+    GameDimensions gameDimensions = new GameDimensions(6, 4, 3);
+    ColumnOperations columnOperations = new ColumnOperations(gameDimensions);
+    BoardHandler boardHandler = new BoardHandler(gameDimensions, columnOperations);
 
-    // 6x4x3 board
-    GameDimensions gameDim6x4x3 = new GameDimensions(6, 4, 3);
-    ColumnOperations columnOperations6x4x3 = new ColumnOperations(gameDim6x4x3);
+    final static int state_O    = "";
+    final static int state_O    = "";
 
-    // 7x6x3 board
-    GameDimensions gameDim7x6x3 = new GameDimensions(7, 6, 3);
-    ColumnOperations columnOperations7x6x3 = new ColumnOperations(gameDim7x6x3);
+    /*
+     * Initial state    End state
+     * 4
+     * 3
+     * 2
+     * 1                   O
+     *
+     * Before:   1000_0000
+     * Expected: 0111_1110
+     */
+    @Test
+    public void emptyColumn_1000_0000() throws GameException {
+        int expected = 0b0111_1110;
+        int result   = boardHandler.moveColumn(EMPTY_COLUMN, false);
+        assertEquals(expected, result);
+    }
 
-    // 7x6x4 board
-    GameDimensions gameDim7x6x4 = new GameDimensions(7, 6, 4);
-    ColumnOperations columnOperations7x6x4 = new ColumnOperations(gameDim7x6x4);
+    /*
+     * Initial state    End state
+     * 4
+     * 3
+     * 2                   O
+     * 1  O                O
+     *
+     * Before:   0111_1110
+     * Expected: 0111_1100
+     */
+    @Test
+    public void redMoveFrom_0111_1110_to_0111_1100() throws GameException {
+        int expected = 0b01111100;
+        int result   = boardHandler.moveColumn(0b0111_1110, false);
+        if(expected != result) {
+            String gotStr =columnStateToBinaryString(result);
+            logger.error("Before: 0111_1110 -> Red (0) -> Expected result: 01111110  <-- Got: " + gotStr);
+        }
+        assertEquals(expected, result);
+    }
+
+    /*
+     * Initial state    End state
+     * 4
+     * 3
+     * 2                   O
+     * 1  X                X
+     *
+     * Before:   0111_1110
+     * Expected: 0111_1100
+     */
+    @Test
+    public void redMoveFrom_0000_0001_to_0111_1101() throws GameException {
+        int expected = 0b01111101;
+        int result   = boardHandler.moveColumn(0b0000_0001, false);
+        if(expected != result) {
+            String gotStr =columnStateToBinaryString(result);
+            logger.error("Before: 0111_1110 -> Red (0) -> Expected result: 01111110  <-- Got: " + gotStr);
+        }
+        assertEquals(expected, result);
+    }
 
     @Test
-    public void emptyColumn_7x6x3() throws GameException {
-        BoardHandler boardHandler = new BoardHandler(gameDim7x6x3, columnOperations7x6x3);
-
+    public void c_() throws GameException {
         int expected = 0b01111110;
-        int result   = boardHandler.moveRedPlayer(0b10000000);
+        int result   = boardHandler.moveColumn(0b10000000, false);
         assertEquals(expected, result);
     }
 
-    @Test
-    public void emptyColumn_6x4x3() throws GameException {
-        BoardHandler boardHandler = new BoardHandler(gameDim6x4x3, columnOperations6x4x3);
-        int expected = 0b01111110;
-        int result   = boardHandler.moveRedPlayer(0b10000000);
-        assertEquals(expected, result);
-    }
+
+
 
     @Test
-    public void roomFourOne_6x4x3() throws GameException {
-        BoardHandler boardHandler = new BoardHandler(gameDim6x4x3, columnOperations6x4x3);
+    public void roomFourOne() throws GameException {
         int expected = 0b11000010;
-        int result   = boardHandler.moveRedPlayer(0b01111010);
-
-        assertEquals(expected, result);
-    }
-
-    @Test
-    public void roomFourOne_7x6x4() throws GameException {
-        BoardHandler boardHandler = new BoardHandler(gameDim7x6x4, columnOperations7x6x4);
-        int expected = 0b11011010;
-        int result = boardHandler.moveRedPlayer(0b00011010);
-        assertEquals(expected, result);
-
-    }
-
-    @Test
-    public void roomFourOne_2x4x3() throws GameException {
-        BoardHandler boardHandler = new BoardHandler(gameDim2x4x3, columnOperations2x4x3);
-        int expected = 0b11000010;
-        int result   = boardHandler.moveRedPlayer(0b01111010);
+        int result = boardHandler.moveColumn(0b01111010, false);
 
         assertEquals(expected, result);
     }

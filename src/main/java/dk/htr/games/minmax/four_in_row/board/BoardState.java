@@ -1,28 +1,39 @@
 package dk.htr.games.minmax.four_in_row.board;
 
-import dk.htr.games.minmax.four_in_row.GameDimensions;
+import dk.htr.games.minmax.four_in_row.config.GameDimensions;
+import dk.htr.games.minmax.four_in_row.exceptions.BoardStateException;
 import dk.htr.games.minmax.four_in_row.exceptions.GameException;
+import jdk.jshell.spi.ExecutionControl;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import org.springframework.stereotype.Component;
 
 import static dk.htr.games.minmax.four_in_row.bits.BitOperations.readByte;
-import static dk.htr.games.minmax.four_in_row.board.ColumnOperations.addColumnStr;
 
+@Getter
+@Setter
+@RequiredArgsConstructor
+@Component
 public class BoardState {
+    private final GameDimensions dimensions;
+    private final ColumnOperations columnOperations;
 
-    private static void addRowNumbers(GameDimensions dimensions, String[] rowStrings) {
-        for(int rowNumber = 1; rowNumber <= dimensions.nrOfRows(); rowNumber++) {
-            rowStrings[rowNumber - 1] = " " + (dimensions.nrOfRows() - rowNumber + 1) + "| ";
+    private void addRowNumbers(String[] rowStrings) {
+        for(int rowNumber = 1; rowNumber <= dimensions.getNrOfRows(); rowNumber++) {
+            rowStrings[rowNumber - 1] = " " + (dimensions.getNrOfRows() - rowNumber + 1) + "| ";
         }
     }
 
-    private static void addBottomLine(GameDimensions dimensions, String[] rowStrings) {
-        int nrOfColumns = dimensions.nrOfColumns();
-        rowStrings[dimensions.nrOfRows()] = " " + String.valueOf('-').repeat((nrOfColumns + 1) * 2 + 1);
+    private void addBottomLine(String[] rowStrings) {
+        int nrOfColumns = dimensions.getNrOfColumns();
+        rowStrings[dimensions.getNrOfRows()] = " " + String.valueOf('-').repeat((nrOfColumns + 1) * 2 + 1);
     }
 
-    private static void addColumnNumbers(GameDimensions dimensions, String[] rowStrings) {
-        rowStrings[dimensions.nrOfRows() + 1] = "    ";
-        for(int columnNr = 1; columnNr <= dimensions.nrOfColumns(); columnNr++) {
-            rowStrings[dimensions.nrOfRows() + 1] += columnNr + " ";
+    private void addColumnNumbers(String[] rowStrings) {
+        rowStrings[dimensions.getNrOfRows() + 1] = "    ";
+        for(int columnNr = 1; columnNr <= dimensions.getNrOfColumns(); columnNr++) {
+            rowStrings[dimensions.getNrOfRows() + 1] += columnNr + " ";
         }
     }
 
@@ -37,26 +48,34 @@ public class BoardState {
      *  0 = 'o'
      *
      */
-    public static String[] getBoardStateStrings(long board,
-                                                GameDimensions
-                                                        dimensions, int move) throws GameException {
-        String[] rows = new String[dimensions.nrOfRows() + 2];
-        addRowNumbers(dimensions, rows);
-        for (int i = 0; i < dimensions.nrOfColumns(); i++) {
-            int column = readByte(board, i + 1);
-            addColumnStr(column, dimensions, rows);
+    public String[] getBoardStateStrings(long board, int move) throws GameException {
+        String[] rows = new String[dimensions.getNrOfRows() + 2];
+        addRowNumbers(rows);
+        for (int i = 0; i < dimensions.getNrOfColumns(); i++) {
+            int columnState = readByte(board, i);
+            columnOperations.addColumnStr(columnState, rows);
         }
-        addBottomLine(dimensions, rows);
-        addColumnNumbers(dimensions, rows);
+        addBottomLine(rows);
+        addColumnNumbers(rows);
         return rows;
     }
 
 
-    private static String getEmptyColumn(GameDimensions dimensions) {
-        return ".".repeat(dimensions.nrOfColumns());
-    }
+    //private String getEmptyColumn() {
+     //   return ".".repeat(dimensions.getNrOfColumns());
+   // }
 
 //    public static String getColumnStateStr(int column) {
 
 //    }
+
+    protected boolean isBoardValid(long board) throws GameException, ExecutionControl.NotImplementedException {
+        throw new ExecutionControl.NotImplementedException("Needs to be implemented");
+  /*     for(int column = 0; column < dimensions.getNrOfColumns(); column++) {
+            if(!ValidColumnStateChecker.isValidColumnState(column, dimensions.getNrOfRows())) {
+                throw new BoardStateException("Board invalid. Column (1 based)");
+            }
+        }
+        return true;*/
+    }
 }

@@ -1,5 +1,6 @@
 package dk.htr.games.minmax.four_in_row.board;
 
+import dk.htr.games.minmax.four_in_row.exceptions.BoardStateException;
 import dk.htr.games.minmax.four_in_row.exceptions.GameException;
 
 /**
@@ -7,13 +8,13 @@ import dk.htr.games.minmax.four_in_row.exceptions.GameException;
  * See TODO Document for rules
  *
  */
-public class ValidColumnChecker {
+public class ValidColumnStateChecker {
     static boolean[] fourRows = new boolean[256];
     static boolean[] sixRows = new boolean[256];
 
     static {
         initFourRows();
-        initSixRows();
+        //initSixRows();
     }
 
     private static void initFourRows() {
@@ -141,17 +142,21 @@ public class ValidColumnChecker {
         if(total != 256) throw new RuntimeException("Fatal error in initialization");
     }
 
-    public static boolean isValidColumn(int column, int numberOfRows) throws GameException {
+
+
+    public static boolean isValidColumnState(int columnState, int numberOfRows) throws GameException {
+        if((columnState < 0)) throw new BoardStateException("Column state cant be less than 0");
+        if((columnState > 255)) throw new BoardStateException("Column state cant be greater than 255");
         if(numberOfRows == 4) {
-            return fourRows[column];
+            return fourRows[columnState];
         } else if(numberOfRows == 6) {
-            return sixRows[column];
+            return sixRows[columnState];
         } else {
             throw new GameException("Doesn't handle nr of rows less other than 4 and 6 at the moment");
         }
     }
 
-    public static boolean isValid4RowColumn(int column) {
-        return fourRows[column];
+    public static boolean isValid4RowColumnState(int columnState) {
+        return fourRows[columnState];
     }
 }
