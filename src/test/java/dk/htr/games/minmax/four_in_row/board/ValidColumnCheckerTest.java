@@ -140,7 +140,7 @@ public class ValidColumnCheckerTest {
         assertTrue(ValidColumnStateChecker.isValid4RowColumnState(0x7B));  // 0b01111011
         assertTrue(ValidColumnStateChecker.isValid4RowColumnState(0x7C));  // 0b01111100
         assertTrue(ValidColumnStateChecker.isValid4RowColumnState(0x7D));  // 0b01111101
-        assertTrue(ValidColumnStateChecker.isValid4RowColumnState(0x7E));  // 0b01111101
+        assertTrue(ValidColumnStateChecker.isValid4RowColumnState(0x7E));  // 0b01111110
 
         // Failure
         assertFalse(ValidColumnStateChecker.isValid4RowColumnState(0x7F));  // 0b01111111

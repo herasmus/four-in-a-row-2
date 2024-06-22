@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import static dk.htr.games.minmax.four_in_row.bits.BitOperations.getBit;
+import static dk.htr.games.minmax.four_in_row.board.Moves.BLUE_MOVES_4R;
+import static dk.htr.games.minmax.four_in_row.board.Moves.RED_MOVES_4R;
 
 @Getter
 @Setter
@@ -30,11 +32,11 @@ public class ColumnOperations {
     public static int COLUMN_FULL_PATTERN    = 0b1100_0000;
     public static int COLUMN_EMPTY_FULL_MASK = 0b1100_0000;
 
-    protected static boolean isEmpty(int column) {
+    public static boolean isEmpty(int column) {
         return (column & COLUMN_EMPTY_FULL_MASK) == COLUMN_EMPTY_PATTERN;
     }
 
-    protected static boolean isFull(int column) {
+    public static boolean isFull(int column) {
         return (column & COLUMN_EMPTY_FULL_MASK) == COLUMN_FULL_PATTERN;
     }
 
@@ -47,10 +49,6 @@ public class ColumnOperations {
             String exceptionString = String.format(overflowExcStr, columnBinaryString, strArrayLength, bitNumber, index);
             throw new GameException(exceptionString);
         }
-    }
-
-    private static boolean hasEmptyPattern(int column) {
-        return (column & COLUMN_EMPTY_FULL_MASK) == COLUMN_EMPTY_PATTERN;
     }
 
     private void addPartlyFilledColumn(int column, String[] rowStrings) throws GameException {
@@ -75,7 +73,7 @@ public class ColumnOperations {
         } while(bitNumber > 0);
     }
 
-    protected int getNumberOfCounters(int column) throws GameException {
+    public int getNumberOfCounters(int column) throws GameException {
         if(isEmpty(column)) return 0;
         if(isFull(column))  return dimensions.getNrOfRows();
         int bitNumber = 7;
@@ -112,5 +110,33 @@ public class ColumnOperations {
         } else {
             addPartlyFilledColumn(columnState, rowStrings);
         }
+    }
+
+    public int redMove(int columnBefore) {
+        int columnAfter;
+        if(dimensions.getNrOfRows() == 4) {
+            columnAfter = RED_MOVES_4R[columnBefore];
+        } /*else if(dimensions.getNrOfRows() == 6) {
+            columnAfter = RED_MOVES_6R[columnBefore];
+        }*/
+        else {
+            throw new IllegalArgumentException();
+        }
+        assert ValidColumnStateChecker.isValid4RowColumnState(columnAfter) : "Not a valid column: " + columnAfter;
+        return columnAfter;
+    }
+
+    public int blueMove(int columnBefore) {
+        int columnAfter;
+        if(dimensions.getNrOfRows() == 4) {
+            columnAfter = BLUE_MOVES_4R[columnBefore];
+        } /*else if(dimensions.getNrOfRows() == 6) {
+            columnAfter = RED_MOVES_6R[columnBefore];
+        }*/
+        else {
+            throw new IllegalArgumentException();
+        }
+        assert ValidColumnStateChecker.isValid4RowColumnState(columnAfter) : "Not a valid column: " + columnAfter;
+        return columnAfter;
     }
 }

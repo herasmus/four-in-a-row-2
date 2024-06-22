@@ -1,41 +1,30 @@
-package dk.htr.games.minmax.four_in_row.board;
+package dk.htr.games.minmax.four_in_row.board.ColumnOperationsTests;
 
+import dk.htr.games.minmax.four_in_row.board.BoardHandler;
+import dk.htr.games.minmax.four_in_row.board.ColumnOperations;
 import dk.htr.games.minmax.four_in_row.config.GameDimensions;
 import dk.htr.games.minmax.four_in_row.exceptions.GameException;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import static dk.htr.games.minmax.four_in_row.board.BinaryStringHelper.columnStateToBinaryString;
+import static dk.htr.games.minmax.four_in_row.board.BoardStateConstants.*;
+import static dk.htr.games.minmax.four_in_row.board.BoardStateConstants.COLUMN_O;
 import static dk.htr.games.minmax.four_in_row.board.ColumnOperations.isEmpty;
 import static dk.htr.games.minmax.four_in_row.board.ColumnOperations.isFull;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ColumnOperationsTest {
+    private final Logger logger = LoggerFactory.getLogger(ColumnOperationsTest.class);
+    GameDimensions gameDimensions = new GameDimensions(6, 4, 3);
+    ColumnOperations columnOperations = new ColumnOperations(gameDimensions);
+
     @Test
     public void isColumnEmpty() {
         assertTrue(isEmpty(0b10000000));
         assertFalse(isEmpty(0b01001101));
     }
-
-    /*
-    @Test
-    public void isEmptyColumnValid() {
-        assertTrue(validEmptyColumn(0b10000000));
-        for(int i = 1; i < 0b111111; i++) {
-            int testValue = 0b10000000 | i;
-            assertFalse(validEmptyColumn(testValue));
-        }
-    }
-
-    @Test
-    public void isFullColumnValid() {
-        assertTrue(validFullColumn(0b10000000));
-        fail();
-    }
-
-    @Test
-    public void isPartlyColumnValid() {
-        fail();
-    } */
 
     @Test
     public void isColumnFull() {

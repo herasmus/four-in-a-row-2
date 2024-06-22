@@ -78,4 +78,8 @@ public class BoardState {
         }
         return true;*/
     }
+
+    public long move(long boardBefore, int move) {
+        return -1;
+    }
 }
