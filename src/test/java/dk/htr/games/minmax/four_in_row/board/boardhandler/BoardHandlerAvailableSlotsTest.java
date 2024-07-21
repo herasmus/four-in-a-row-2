@@ -33,7 +33,7 @@ public class BoardHandlerAvailableSlotsTest {
         byte res = boardHandler.getAvailableSlots(board);
         byte expected = 0b00000000;
         if(res != expected) {
-            boardStateLogger.logBoardStateWarn(board, 2);
+            boardStateLogger.logBoardStateWarn(board);
         }
         assertEquals(expected, res);
     }
@@ -63,7 +63,7 @@ public class BoardHandlerAvailableSlotsTest {
         byte got = boardHandler.getAvailableSlots(board);
         byte expected = 0b00011110;
         if(got != expected) {
-            boardStateLogger.logBoardStateWarn(board, 2);
+            boardStateLogger.logBoardStateWarn(board);
         }
         assertEquals(expected, got);
     }
@@ -79,7 +79,7 @@ public class BoardHandlerAvailableSlotsTest {
         byte res = boardHandler.getAvailableSlots(board);
         byte expected = 0b00011111;
         if(res != expected) {
-            boardStateLogger.logBoardStateWarn(board, 2);
+            boardStateLogger.logBoardStateWarn(board);
         }
         assertEquals(expected, res);
     }

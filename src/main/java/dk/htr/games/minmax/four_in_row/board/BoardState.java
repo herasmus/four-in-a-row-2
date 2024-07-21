@@ -48,7 +48,7 @@ public class BoardState {
      *  0 = 'o'
      *
      */
-    public String[] getBoardStateStrings(long board, int move) throws GameException {
+    public String[] getBoardStateAsciiImage(long board) throws GameException {
         String[] rows = new String[dimensions.getNrOfRows() + 2];
         addRowNumbers(rows);
         for (int i = 0; i < dimensions.getNrOfColumns(); i++) {

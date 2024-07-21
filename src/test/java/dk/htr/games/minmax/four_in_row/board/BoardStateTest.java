@@ -38,7 +38,7 @@ public class BoardStateTest {
         BoardState boardState = new BoardState(gameDim7x6x4, columnOperations7x6x4);
 
         final long board = 0b01111010_10000000_11001101_00001111_01111000_01110110_11101001L;
-        String[] actualStrings = boardState.getBoardStateStrings(board, 3);
+        String[] actualStrings = boardState.getBoardStateAsciiImage(board);
         assertEquals(gameDim7x6x4.getNrOfRows() + 2, actualStrings.length);
 
         String[] expectedLines = {
@@ -71,7 +71,7 @@ public class BoardStateTest {
         BoardState boardState = new BoardState(gameDim7x4x4, columnOperations7x4x4);
 
         final long board = 0b01111110_00000111_11000011_00000010_10000000_01111101_11001010L;
-        String[] actualStrings = boardState.getBoardStateStrings(board, 3);
+        String[] actualStrings = boardState.getBoardStateAsciiImage(board);
         assertEquals(gameDim7x4x4.getNrOfRows() + 2, actualStrings.length);
         String[] expectedLines = {
         " 4| x . . . o . . ",

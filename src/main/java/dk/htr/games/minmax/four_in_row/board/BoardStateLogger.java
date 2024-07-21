@@ -1,6 +1,5 @@
 package dk.htr.games.minmax.four_in_row.board;
 
-import dk.htr.games.minmax.four_in_row.config.GameDimensions;
 import dk.htr.games.minmax.four_in_row.exceptions.GameException;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +19,8 @@ public class BoardStateLogger {
 
     static final Logger logger = LoggerFactory.getLogger(BoardStateLogger.class);
 
-    public void logBoardStateTrace(long board, int move) throws GameException {
-        String[] boardStateStrings = boardState.getBoardStateStrings(board, move);
+    public void logBoardStateTrace(long board) throws GameException {
+        String[] boardStateStrings = boardState.getBoardStateAsciiImage(board);
 
         if(logger.isTraceEnabled()) {
             for(String str : boardStateStrings) {
@@ -30,8 +29,8 @@ public class BoardStateLogger {
         }
     }
 
-    public void logBoardStateWarn(long board, int move) throws GameException {
-        String[] boardStateStrings = boardState.getBoardStateStrings(board, move);
+    public void logBoardStateWarn(long board) throws GameException {
+        String[] boardStateStrings = boardState.getBoardStateAsciiImage(board);
 
         for(String str : boardStateStrings) {
             logger.warn(str);;
