@@ -1,7 +1,7 @@
 package dk.htr.games.minmax.four_in_row.board;
 
+import dk.htr.games.minmax.four_in_row.board.columns.ColumnOperations;
 import dk.htr.games.minmax.four_in_row.config.GameDimensions;
-import dk.htr.games.minmax.four_in_row.exceptions.BoardStateException;
 import dk.htr.games.minmax.four_in_row.exceptions.GameException;
 import jdk.jshell.spi.ExecutionControl;
 import lombok.Getter;

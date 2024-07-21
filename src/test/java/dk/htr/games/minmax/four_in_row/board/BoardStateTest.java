@@ -1,5 +1,6 @@
 package dk.htr.games.minmax.four_in_row.board;
 
+import dk.htr.games.minmax.four_in_row.board.columns.ColumnOperations;
 import dk.htr.games.minmax.four_in_row.config.GameDimensions;
 import dk.htr.games.minmax.four_in_row.exceptions.GameException;
 import org.junit.jupiter.api.Test;

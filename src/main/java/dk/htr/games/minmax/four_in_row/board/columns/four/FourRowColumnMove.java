@@ -1,8 +1,11 @@
-package dk.htr.games.minmax.four_in_row.board;
+package dk.htr.games.minmax.four_in_row.board.columns.four;
 
-import static dk.htr.games.minmax.four_in_row.board.BoardStateConstants.*;
+import dk.htr.games.minmax.four_in_row.board.columns.ColumnMoves;
+import dk.htr.games.minmax.four_in_row.exceptions.BoardStateException;
 
-public class Moves {
+import static dk.htr.games.minmax.four_in_row.board.columns.four.ValidFourRowColumns.*;
+
+public class FourRowColumnMove implements ColumnMoves {
     final protected static int[]  RED_MOVES_4R;
     final protected static int[]  BLUE_MOVES_4R;
 
@@ -58,5 +61,21 @@ public class Moves {
         BLUE_MOVES_4R[COLUMN_XOX] = COLUMN_4R_XXOX;
         BLUE_MOVES_4R[COLUMN_XXO] = COLUMN_4R_XXXO;
         BLUE_MOVES_4R[COLUMN_XXX] = COLUMN_4R_XXXX;
+    }
+
+    public int makeMoveBlue(int presentState) throws BoardStateException {
+        int moveResult = BLUE_MOVES_4R[presentState];
+        if(moveResult == -1) {
+            throw new BoardStateException("Invalid move (blue). Column before move: " + presentState);
+        }
+        return  moveResult;
+    }
+
+    public int makeMoveRed(int presentState) throws BoardStateException {
+        int moveResult = BLUE_MOVES_4R[presentState];
+        if(moveResult == -1) {
+            throw new BoardStateException("Invalid move (red). Column before move: " + presentState);
+        }
+        return  moveResult;
     }
 }

@@ -1,14 +1,10 @@
 package dk.htr.games.minmax.four_in_row.board.ColumnOperationsTests;
 
-import dk.htr.games.minmax.four_in_row.board.BoardHandler;
-import dk.htr.games.minmax.four_in_row.board.ColumnOperations;
+import dk.htr.games.minmax.four_in_row.board.columns.ColumnOperations;
 import dk.htr.games.minmax.four_in_row.config.GameDimensions;
-import dk.htr.games.minmax.four_in_row.exceptions.GameException;
-import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static dk.htr.games.minmax.four_in_row.board.BinaryStringHelper.columnStateToBinaryString;
 import static dk.htr.games.minmax.four_in_row.board.BoardStateConstants.*;
 import static dk.htr.games.minmax.four_in_row.board.BoardStateConstants.COLUMN_O;
 import static org.junit.jupiter.api.Assertions.assertEquals;

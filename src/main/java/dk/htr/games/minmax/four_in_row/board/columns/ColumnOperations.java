@@ -1,4 +1,4 @@
-package dk.htr.games.minmax.four_in_row.board;
+package dk.htr.games.minmax.four_in_row.board.columns;
 
 import dk.htr.games.minmax.four_in_row.config.GameDimensions;
 import dk.htr.games.minmax.four_in_row.exceptions.GameException;
@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import static dk.htr.games.minmax.four_in_row.bits.BitOperations.getBit;
-import static dk.htr.games.minmax.four_in_row.board.Moves.BLUE_MOVES_4R;
-import static dk.htr.games.minmax.four_in_row.board.Moves.RED_MOVES_4R;
+import static dk.htr.games.minmax.four_in_row.board.columns.four.FourRowColumnMove.BLUE_MOVES_4R;
+import static dk.htr.games.minmax.four_in_row.board.columns.four.FourRowColumnMove.RED_MOVES_4R;
 
 @Getter
 @Setter
@@ -102,7 +102,7 @@ public class ColumnOperations {
     }
 
     public void addColumnStr(int columnState, String[] rowStrings) throws GameException {
-        if(!ValidColumnStateChecker.isValidColumnState(columnState, dimensions.getNrOfRows())) throw new GameException("Invalid column");
+        if(!ColumnValidatorOld.isValidColumnState(columnState, dimensions.getNrOfRows())) throw new GameException("Invalid column");
         if (isEmpty(columnState)) {
             addEmptyColumn(rowStrings);
         } else if (isFull(columnState)) {
@@ -122,7 +122,7 @@ public class ColumnOperations {
         else {
             throw new IllegalArgumentException();
         }
-        assert ValidColumnStateChecker.isValid4RowColumnState(columnAfter) : "Not a valid column: " + columnAfter;
+        assert ColumnValidatorOld.isValid4RowColumnState(columnAfter) : "Not a valid column: " + columnAfter;
         return columnAfter;
     }
 
@@ -136,7 +136,7 @@ public class ColumnOperations {
         else {
             throw new IllegalArgumentException();
         }
-        assert ValidColumnStateChecker.isValid4RowColumnState(columnAfter) : "Not a valid column: " + columnAfter;
+        assert ColumnValidatorOld.isValid4RowColumnState(columnAfter) : "Not a valid column: " + columnAfter;
         return columnAfter;
     }
 }

@@ -1,9 +1,9 @@
-package dk.htr.games.minmax.four_in_row.board;
+package dk.htr.games.minmax.four_in_row.board.columns.four;
 
 /*
  *
  */
-public class BoardStateConstants {
+public class ValidFourRowColumns {
     // Common
     final static public int COLUMN_EMPTY   = 0b1000_0000;
     final static public int COLUMN_O       = 0b0111_1110;

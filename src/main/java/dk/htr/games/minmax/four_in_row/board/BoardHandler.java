@@ -1,16 +1,17 @@
 package dk.htr.games.minmax.four_in_row.board;
 
+import dk.htr.games.minmax.four_in_row.board.columns.ColumnOperations;
 import dk.htr.games.minmax.four_in_row.config.GameDimensions;
 import dk.htr.games.minmax.four_in_row.exceptions.BoardStateException;
 import dk.htr.games.minmax.four_in_row.exceptions.GameException;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import static dk.htr.games.minmax.four_in_row.bits.BitOperations.*;
-import static dk.htr.games.minmax.four_in_row.board.ColumnOperations.*;
+import static dk.htr.games.minmax.four_in_row.board.columns.ColumnOperations.isEmpty;
+import static dk.htr.games.minmax.four_in_row.board.columns.ColumnOperations.isFull;
 
 @Setter
 @Getter
@@ -54,7 +55,7 @@ public class BoardHandler {
 
     public int moveColumn(int columnState, boolean isBluePlayer) throws GameException {
         int newColumnState;
-        if(!ValidColumnStateChecker.isValidColumnState(columnState, dimensions.getNrOfRows())) {
+        if(!ColumnValidatorOld.isValidColumnState(columnState, dimensions.getNrOfRows())) {
             throw new BoardStateException("Invalid Column state: " + columnState);
         }
         if(isBluePlayer) {
