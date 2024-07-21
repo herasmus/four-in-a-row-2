@@ -5,7 +5,7 @@ import dk.htr.games.minmax.four_in_row.exceptions.BoardStateException;
 
 import static dk.htr.games.minmax.four_in_row.board.columns.four.ValidFourRowColumns.*;
 
-public class FourRowColumnMove implements ColumnMoves {
+public class FourRowColumnMoves implements ColumnMoves {
     final protected static int[]  RED_MOVES_4R;
     final protected static int[]  BLUE_MOVES_4R;
 
@@ -63,7 +63,7 @@ public class FourRowColumnMove implements ColumnMoves {
         BLUE_MOVES_4R[COLUMN_XXX] = COLUMN_4R_XXXX;
     }
 
-    public int makeMoveBlue(int presentState) throws BoardStateException {
+    public int moveBlue(int presentState) throws BoardStateException {
         int moveResult = BLUE_MOVES_4R[presentState];
         if(moveResult == -1) {
             throw new BoardStateException("Invalid move (blue). Column before move: " + presentState);
@@ -71,8 +71,8 @@ public class FourRowColumnMove implements ColumnMoves {
         return  moveResult;
     }
 
-    public int makeMoveRed(int presentState) throws BoardStateException {
-        int moveResult = BLUE_MOVES_4R[presentState];
+    public int moveRed(int presentState) throws BoardStateException {
+        int moveResult = RED_MOVES_4R[presentState];
         if(moveResult == -1) {
             throw new BoardStateException("Invalid move (red). Column before move: " + presentState);
         }

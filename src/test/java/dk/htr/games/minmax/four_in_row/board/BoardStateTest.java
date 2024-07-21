@@ -1,6 +1,6 @@
 package dk.htr.games.minmax.four_in_row.board;
 
-import dk.htr.games.minmax.four_in_row.board.columns.ColumnOperations;
+import dk.htr.games.minmax.four_in_row.board.columns.ColumnStringOperations;
 import dk.htr.games.minmax.four_in_row.config.GameDimensions;
 import dk.htr.games.minmax.four_in_row.exceptions.GameException;
 import org.junit.jupiter.api.Test;
@@ -16,10 +16,10 @@ public class BoardStateTest {
     Logger logger = LoggerFactory.getLogger(BoardStateTest.class);
 
     GameDimensions gameDim7x4x4 = new GameDimensions(7, 4, 4);
-    ColumnOperations columnOperations7x4x4 = new ColumnOperations(gameDim7x4x4);
+    ColumnStringOperations columnOperations7x4x4 = new ColumnStringOperations(gameDim7x4x4);
 
     GameDimensions gameDim7x6x4 = new GameDimensions(7, 6, 4);
-    ColumnOperations columnOperations7x6x4 = new ColumnOperations(gameDim7x6x4);
+    ColumnStringOperations columnOperations7x6x4 = new ColumnStringOperations(gameDim7x6x4);
 
 
     /*

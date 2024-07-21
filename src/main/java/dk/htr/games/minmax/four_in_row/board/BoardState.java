@@ -1,6 +1,6 @@
 package dk.htr.games.minmax.four_in_row.board;
 
-import dk.htr.games.minmax.four_in_row.board.columns.ColumnOperations;
+import dk.htr.games.minmax.four_in_row.board.columns.ColumnStringOperations;
 import dk.htr.games.minmax.four_in_row.config.GameDimensions;
 import dk.htr.games.minmax.four_in_row.exceptions.GameException;
 import jdk.jshell.spi.ExecutionControl;
@@ -17,7 +17,7 @@ import static dk.htr.games.minmax.four_in_row.bits.BitOperations.readByte;
 @Component
 public class BoardState {
     private final GameDimensions dimensions;
-    private final ColumnOperations columnOperations;
+    private final ColumnStringOperations columnOperations;
 
     private void addRowNumbers(String[] rowStrings) {
         for(int rowNumber = 1; rowNumber <= dimensions.getNrOfRows(); rowNumber++) {

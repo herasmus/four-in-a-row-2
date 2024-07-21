@@ -1,6 +1,6 @@
-package dk.htr.games.minmax.four_in_row.board.ColumnOperationsTests;
+package dk.htr.games.minmax.four_in_row.board.columns.four;
 
-import dk.htr.games.minmax.four_in_row.board.columns.ColumnOperations;
+import dk.htr.games.minmax.four_in_row.board.columns.ColumnStringOperations;
 import dk.htr.games.minmax.four_in_row.config.GameDimensions;
 import dk.htr.games.minmax.four_in_row.exceptions.GameException;
 import org.junit.jupiter.api.Test;
@@ -11,10 +11,9 @@ import static dk.htr.games.minmax.four_in_row.board.BinaryStringHelper.columnSta
 import static dk.htr.games.minmax.four_in_row.board.columns.four.ValidFourRowColumns.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ColumnOperations_4Rows_Moves_OneToTwo {
-    private final Logger logger = LoggerFactory.getLogger(ColumnOperations_4Rows_Moves_OneToTwo.class);
-    GameDimensions gameDimensions = new GameDimensions(6, 4, 3);
-    ColumnOperations columnOperations = new ColumnOperations(gameDimensions);
+public class FourRowColumnMoves_OneToTwo {
+    private final Logger logger = LoggerFactory.getLogger(FourRowColumnMoves_OneToTwo.class);
+    FourRowColumnMoves columnMoves = new FourRowColumnMoves();
 
     /*
      * Initial state    End state
@@ -29,7 +28,7 @@ public class ColumnOperations_4Rows_Moves_OneToTwo {
     @Test
     public void move_O_to_OO() throws GameException {
         int expected = COLUMN_OO;
-        int result   = columnOperations.redMove(COLUMN_O);
+        int result   = columnMoves.moveRed(COLUMN_O);
         if(expected != result) {
             String gotStr =columnStateToBinaryString(result);
             logger.error("Before: 0111_1110 -> Red (0) -> Expected result: 01111100  <-- Got: " + gotStr);
@@ -50,7 +49,7 @@ public class ColumnOperations_4Rows_Moves_OneToTwo {
     @Test
     public void move_O_to_XO() throws GameException {
         int expected = COLUMN_XO;
-        int result   = columnOperations.blueMove(COLUMN_O);
+        int result   = columnMoves.moveBlue(COLUMN_O);
         assertEquals(COLUMN_XO, result);
     }
 
@@ -66,7 +65,7 @@ public class ColumnOperations_4Rows_Moves_OneToTwo {
      */
     @Test
     public void move_X_to_OX() throws GameException {
-        int result   = columnOperations.redMove(COLUMN_X);
+        int result   = columnMoves.moveRed(COLUMN_X);
         assertEquals(COLUMN_OX, result);
     }
 
@@ -82,7 +81,7 @@ public class ColumnOperations_4Rows_Moves_OneToTwo {
      */
     @Test
     public void move_X_to_XX() throws GameException {
-        int result   = columnOperations.blueMove(COLUMN_X);
+        int result   = columnMoves.moveBlue(COLUMN_X);
         assertEquals(COLUMN_XX, result);
     }
 }

@@ -1,19 +1,17 @@
-package dk.htr.games.minmax.four_in_row.board.ColumnOperationsTests;
+package dk.htr.games.minmax.four_in_row.board.columns.four;
 
-import dk.htr.games.minmax.four_in_row.board.columns.ColumnOperations;
+import dk.htr.games.minmax.four_in_row.board.columns.ColumnStringOperations;
 import dk.htr.games.minmax.four_in_row.config.GameDimensions;
+import dk.htr.games.minmax.four_in_row.exceptions.BoardStateException;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static dk.htr.games.minmax.four_in_row.board.BoardStateConstants.*;
-import static dk.htr.games.minmax.four_in_row.board.BoardStateConstants.COLUMN_XXX;
+import static dk.htr.games.minmax.four_in_row.board.columns.four.ValidFourRowColumns.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ColumnOperations_4Rows_Moves_ThreeToFour_BlueMove {
-    private final Logger logger = LoggerFactory.getLogger(ColumnOperations_4Rows_Moves_ThreeToFour_BlueMove.class);
-    GameDimensions gameDimensions = new GameDimensions(6, 4, 3);
-    ColumnOperations columnOperations = new ColumnOperations(gameDimensions);
+public class FourRowColumnMoves_ThreeToFour_BlueMove {
+    FourRowColumnMoves columnMoves = new FourRowColumnMoves();
 
     /*
      * Initial state    End state
@@ -26,8 +24,8 @@ public class ColumnOperations_4Rows_Moves_ThreeToFour_BlueMove {
      * Expected: 1100_1000
      */
     @Test
-    public void move_OOO_to_XOOO() {
-        int result   = columnOperations.blueMove(COLUMN_OOO);
+    public void move_OOO_to_XOOO() throws BoardStateException {
+        int result   = columnMoves.moveBlue(COLUMN_OOO);
         assertEquals(COLUMN_4R_XOOO, result);
     }
 
@@ -42,8 +40,8 @@ public class ColumnOperations_4Rows_Moves_ThreeToFour_BlueMove {
      * Expected: 1100_1001
      */
     @Test
-    public void move_OOX_to_XOOX() {
-        int result   = columnOperations.blueMove(COLUMN_OOX);
+    public void move_OOX_to_XOOX() throws BoardStateException {
+        int result   = columnMoves.moveBlue(COLUMN_OOX);
         assertEquals(COLUMN_4R_XOOX, result);
     }
 
@@ -58,8 +56,8 @@ public class ColumnOperations_4Rows_Moves_ThreeToFour_BlueMove {
      * Expected: 1100_1010
      */
     @Test
-    public void move_OXO_to_XOXO() {
-        int result   = columnOperations.blueMove(COLUMN_OXO);
+    public void move_OXO_to_XOXO() throws BoardStateException {
+        int result   = columnMoves.moveBlue(COLUMN_OXO);
         assertEquals(COLUMN_4R_XOXO, result);
     }
 
@@ -74,8 +72,8 @@ public class ColumnOperations_4Rows_Moves_ThreeToFour_BlueMove {
      * Expected: 1100_1011
      */
     @Test
-    public void move_OXX_to_XOXX() {
-        int result   = columnOperations.blueMove(COLUMN_OXX);
+    public void move_OXX_to_XOXX() throws BoardStateException {
+        int result   = columnMoves.moveBlue(COLUMN_OXX);
         assertEquals(COLUMN_4R_XOXX, result);
     }
 
@@ -90,8 +88,8 @@ public class ColumnOperations_4Rows_Moves_ThreeToFour_BlueMove {
      * Expected: 1100_1100
      */
     @Test
-    public void move_XOO_to_XXOO() {
-        int result   = columnOperations.blueMove(COLUMN_XOO);
+    public void move_XOO_to_XXOO() throws BoardStateException {
+        int result   = columnMoves.moveBlue(COLUMN_XOO);
         assertEquals(COLUMN_4R_XXOO, result);
     }
 
@@ -106,8 +104,8 @@ public class ColumnOperations_4Rows_Moves_ThreeToFour_BlueMove {
      * Expected: 1100_1101
      */
     @Test
-    public void move_XOX_to_XXOX() {
-        int result   = columnOperations.blueMove(COLUMN_XOX);
+    public void move_XOX_to_XXOX() throws BoardStateException {
+        int result   = columnMoves.moveBlue(COLUMN_XOX);
         assertEquals(COLUMN_4R_XXOX, result);
     }
 
@@ -122,8 +120,8 @@ public class ColumnOperations_4Rows_Moves_ThreeToFour_BlueMove {
      * Expected: 1100_1110
      */
     @Test
-    public void move_XXO_to_XXXO() {
-        int result   = columnOperations.blueMove(COLUMN_XXO);
+    public void move_XXO_to_XXXO() throws BoardStateException {
+        int result   = columnMoves.moveBlue(COLUMN_XXO);
         assertEquals(COLUMN_4R_XXXO, result);
     }
 
@@ -138,7 +136,7 @@ public class ColumnOperations_4Rows_Moves_ThreeToFour_BlueMove {
      * Expected: 1100_1111
      */
     @Test
-    public void move_XXX_to_XXXX() {
-        assertEquals(COLUMN_4R_XXXX, columnOperations.blueMove(COLUMN_XXX));
+    public void move_XXX_to_XXXX() throws BoardStateException {
+        assertEquals(COLUMN_4R_XXXX, columnMoves.moveBlue(COLUMN_XXX));
     }
 }

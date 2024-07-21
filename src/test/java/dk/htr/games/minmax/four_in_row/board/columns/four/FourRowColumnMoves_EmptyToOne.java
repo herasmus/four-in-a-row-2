@@ -1,19 +1,12 @@
-package dk.htr.games.minmax.four_in_row.board.ColumnOperationsTests;
+package dk.htr.games.minmax.four_in_row.board.columns.four;
 
-import dk.htr.games.minmax.four_in_row.board.columns.ColumnOperations;
-import dk.htr.games.minmax.four_in_row.config.GameDimensions;
 import dk.htr.games.minmax.four_in_row.exceptions.GameException;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import static dk.htr.games.minmax.four_in_row.board.columns.four.ValidFourRowColumns.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ColumnOperations_4Rows_Moves_EmptyToOne {
-    private final Logger logger = LoggerFactory.getLogger(ColumnOperations_4Rows_Moves_EmptyToOne.class);
-    GameDimensions gameDimensions = new GameDimensions(6, 4, 3);
-    ColumnOperations columnOperations = new ColumnOperations(gameDimensions);
+public class FourRowColumnMoves_EmptyToOne {
+    FourRowColumnMoves columnMoves = new FourRowColumnMoves();
 
     /*
      * Initial state    End state
@@ -27,7 +20,7 @@ public class ColumnOperations_4Rows_Moves_EmptyToOne {
      */
     @Test
     public void move_EMPTY_to_O() throws GameException {
-        assertEquals(COLUMN_O, columnOperations.redMove(COLUMN_EMPTY));
+        assertEquals(COLUMN_O, columnMoves.moveRed(COLUMN_EMPTY));
     }
 
     /*
@@ -42,6 +35,6 @@ public class ColumnOperations_4Rows_Moves_EmptyToOne {
      */
     @Test
     public void move_EMPTY_to_X() throws GameException {
-        assertEquals(COLUMN_X, columnOperations.blueMove(COLUMN_EMPTY));
+        assertEquals(COLUMN_X, columnMoves.moveBlue(COLUMN_EMPTY));
     }
 }

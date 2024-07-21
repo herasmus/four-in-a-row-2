@@ -9,36 +9,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import static dk.htr.games.minmax.four_in_row.bits.BitOperations.getBit;
-import static dk.htr.games.minmax.four_in_row.board.columns.four.FourRowColumnMove.BLUE_MOVES_4R;
-import static dk.htr.games.minmax.four_in_row.board.columns.four.FourRowColumnMove.RED_MOVES_4R;
+import static dk.htr.games.minmax.four_in_row.board.columns.ColumnUtility.isEmpty;
+import static dk.htr.games.minmax.four_in_row.board.columns.ColumnUtility.isFull;
 
 @Getter
 @Setter
 @RequiredArgsConstructor
 @Component
-public class ColumnOperations {
+public class ColumnStringOperations {
     @Autowired
     private final GameDimensions dimensions;
 
     private final static String underflowExcStr = "Underflow: Column: %s  String array length: %d  Bitnumber:  %d  Index: %d";
     private final static String overflowExcStr  = "Overflow:  Column: %s  String array length: %d  Bitnumber:  %d  Index: %d";
-
-    // Bit 7 and 6 used for marking empty and full
-    //
-    // 10xxxxxx == EMPTY
-    // 11xxxxxx == FULL
-
-    public static int COLUMN_EMPTY_PATTERN   = 0b1000_0000;
-    public static int COLUMN_FULL_PATTERN    = 0b1100_0000;
-    public static int COLUMN_EMPTY_FULL_MASK = 0b1100_0000;
-
-    public static boolean isEmpty(int column) {
-        return (column & COLUMN_EMPTY_FULL_MASK) == COLUMN_EMPTY_PATTERN;
-    }
-
-    public static boolean isFull(int column) {
-        return (column & COLUMN_EMPTY_FULL_MASK) == COLUMN_FULL_PATTERN;
-    }
 
     private static void validateIndex(int column, int strArrayLength, int bitNumber, int index) throws GameException {
         String columnBinaryString =Integer.toBinaryString(column);
@@ -73,20 +56,6 @@ public class ColumnOperations {
         } while(bitNumber > 0);
     }
 
-    public int getNumberOfCounters(int column) throws GameException {
-        if(isEmpty(column)) return 0;
-        if(isFull(column))  return dimensions.getNrOfRows();
-        int bitNumber = 7;
-        int fillerBitValue = getBit(column, bitNumber);
-        int bitValue;
-        do {
-            bitNumber--;
-            bitValue = getBit(column, bitNumber);
-        } while(fillerBitValue == bitValue);
-        if(bitNumber < 1) throw new GameException("Didn't find any non filler-bits");
-        return bitNumber;
-    }
-
     private void addEmptyColumn(String[] rowStrings) {
         for (int rowNumber = 0; rowNumber < dimensions.getNrOfRows(); rowNumber++) {
             rowStrings[rowNumber] += ". ";
@@ -102,7 +71,6 @@ public class ColumnOperations {
     }
 
     public void addColumnStr(int columnState, String[] rowStrings) throws GameException {
-        if(!ColumnValidatorOld.isValidColumnState(columnState, dimensions.getNrOfRows())) throw new GameException("Invalid column");
         if (isEmpty(columnState)) {
             addEmptyColumn(rowStrings);
         } else if (isFull(columnState)) {
@@ -110,33 +78,5 @@ public class ColumnOperations {
         } else {
             addPartlyFilledColumn(columnState, rowStrings);
         }
-    }
-
-    public int redMove(int columnBefore) {
-        int columnAfter;
-        if(dimensions.getNrOfRows() == 4) {
-            columnAfter = RED_MOVES_4R[columnBefore];
-        } /*else if(dimensions.getNrOfRows() == 6) {
-            columnAfter = RED_MOVES_6R[columnBefore];
-        }*/
-        else {
-            throw new IllegalArgumentException();
-        }
-        assert ColumnValidatorOld.isValid4RowColumnState(columnAfter) : "Not a valid column: " + columnAfter;
-        return columnAfter;
-    }
-
-    public int blueMove(int columnBefore) {
-        int columnAfter;
-        if(dimensions.getNrOfRows() == 4) {
-            columnAfter = BLUE_MOVES_4R[columnBefore];
-        } /*else if(dimensions.getNrOfRows() == 6) {
-            columnAfter = RED_MOVES_6R[columnBefore];
-        }*/
-        else {
-            throw new IllegalArgumentException();
-        }
-        assert ColumnValidatorOld.isValid4RowColumnState(columnAfter) : "Not a valid column: " + columnAfter;
-        return columnAfter;
     }
 }

@@ -3,7 +3,7 @@ package dk.htr.games.minmax.four_in_row.board.boardhandler;
 import dk.htr.games.minmax.four_in_row.board.BoardHandler;
 import dk.htr.games.minmax.four_in_row.board.BoardState;
 import dk.htr.games.minmax.four_in_row.board.BoardStateLogger;
-import dk.htr.games.minmax.four_in_row.board.columns.ColumnOperations;
+import dk.htr.games.minmax.four_in_row.board.columns.ColumnStringOperations;
 import dk.htr.games.minmax.four_in_row.config.GameDimensions;
 import dk.htr.games.minmax.four_in_row.exceptions.GameException;
 import org.junit.jupiter.api.Test;
@@ -15,11 +15,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class BoardHandlerAvailableSlotsTest {
     // 2x4x3 board
     final static GameDimensions gameDim2x4x3 = new GameDimensions(2, 4, 3);
-    final static ColumnOperations columnOperations2x4x3 = new ColumnOperations(gameDim2x4x3);
+    final static ColumnStringOperations columnOperations2x4x3 = new ColumnStringOperations(gameDim2x4x3);
 
     // 5x4x3 board
     final static GameDimensions gameDim5x4x3 = new GameDimensions(5, 4, 3);
-    final static ColumnOperations columnOperations5x4x3 = new ColumnOperations(gameDim5x4x3);
+    final static ColumnStringOperations columnOperations5x4x3 = new ColumnStringOperations(gameDim5x4x3);
 
 
     @Test
@@ -52,7 +52,7 @@ public class BoardHandlerAvailableSlotsTest {
     @Test
     public void someAvailableSlots() throws GameException {
         GameDimensions gameDim5x4x3 = new GameDimensions(5, 4, 3);
-        ColumnOperations columnOperations5x4x3 = new ColumnOperations(gameDim5x4x3);
+        ColumnStringOperations columnOperations5x4x3 = new ColumnStringOperations(gameDim5x4x3);
 
         // Constructing stuff manually - todo Dependency injection?
         BoardHandler boardHandler = new BoardHandler(gameDim5x4x3, columnOperations5x4x3);
