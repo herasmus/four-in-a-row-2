@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ColumnValidator {
     boolean isValidColumn(int column) throws BoardStateException;
-    int[] getValidColumnArray();
-    List<Integer> getValidColumnList();
-    List<Integer> getInvalidColumnList();
+    //int[] getValidColumnArray();
+    //List<Integer> getValidColumnList();
+    //List<Integer> getInvalidColumnList();
 }

@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static dk.htr.games.minmax.four_in_row.board.BinaryStringHelper.columnToBinaryString;
-import static dk.htr.games.minmax.four_in_row.board.columns.four.FourRowColumns.*;
+import static dk.htr.games.minmax.four_in_row.board.columns.four.ValidFourFowColumns.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FourRowColumnMoveExecutor_OneToTwo {
@@ -25,8 +25,8 @@ public class FourRowColumnMoveExecutor_OneToTwo {
      */
     @Test
     public void move_O_to_OO() throws GameException {
-        int expected = COLUMN_OO;
-        int result   = columnMoves.moveRed(COLUMN_O);
+        int expected = COLUMN_OO.getValue();
+        int result   = columnMoves.moveRed(COLUMN_O.getValue());
         if(expected != result) {
             String gotStr = columnToBinaryString(result);
             logger.error("Before: 0111_1110 -> Red (0) -> Expected result: 01111100  <-- Got: " + gotStr);
@@ -46,9 +46,9 @@ public class FourRowColumnMoveExecutor_OneToTwo {
      */
     @Test
     public void move_O_to_XO() throws GameException {
-        int expected = COLUMN_XO;
-        int result   = columnMoves.moveBlue(COLUMN_O);
-        assertEquals(COLUMN_XO, result);
+        int expected = COLUMN_XO.getValue();
+        int result   = columnMoves.moveBlue(COLUMN_O.getValue());
+        assertEquals(COLUMN_XO.getValue(), result);
     }
 
     /*
@@ -63,8 +63,8 @@ public class FourRowColumnMoveExecutor_OneToTwo {
      */
     @Test
     public void move_X_to_OX() throws GameException {
-        int result   = columnMoves.moveRed(COLUMN_X);
-        assertEquals(COLUMN_OX, result);
+        int result   = columnMoves.moveRed(COLUMN_X.getValue());
+        assertEquals(COLUMN_OX.getValue(), result);
     }
 
     /*
@@ -79,7 +79,7 @@ public class FourRowColumnMoveExecutor_OneToTwo {
      */
     @Test
     public void move_X_to_XX() throws GameException {
-        int result   = columnMoves.moveBlue(COLUMN_X);
-        assertEquals(COLUMN_XX, result);
+        int result   = columnMoves.moveBlue(COLUMN_X.getValue());
+        assertEquals(COLUMN_XX.getValue(), result);
     }
 }

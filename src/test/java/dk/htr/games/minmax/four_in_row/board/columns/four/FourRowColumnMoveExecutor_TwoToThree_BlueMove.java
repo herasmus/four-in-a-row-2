@@ -3,6 +3,7 @@ package dk.htr.games.minmax.four_in_row.board.columns.four;
 import dk.htr.games.minmax.four_in_row.exceptions.BoardStateException;
 import org.junit.jupiter.api.Test;
 
+import static dk.htr.games.minmax.four_in_row.board.columns.four.ValidFourFowColumns.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FourRowColumnMoveExecutor_TwoToThree_BlueMove {
@@ -19,8 +20,8 @@ public class FourRowColumnMoveExecutor_TwoToThree_BlueMove {
      */
     @Test
     public void move_OO_to_XOO() throws BoardStateException {
-        int result   = columnMoves.moveBlue(COLUMN_OO);
-        assertEquals(COLUMN_XOO, result);
+        int result   = columnMoves.moveBlue(COLUMN_OO.getValue());
+        assertEquals(COLUMN_XOO.getValue(), result);
     }
 
     /*
@@ -35,8 +36,8 @@ public class FourRowColumnMoveExecutor_TwoToThree_BlueMove {
      */
     @Test
     public void move_OO_to_XXO() throws BoardStateException {
-        int result   = columnMoves.moveBlue(COLUMN_XO);
-        assertEquals(COLUMN_XXO, result);
+        int result   = columnMoves.moveBlue(COLUMN_XO.getValue());
+        assertEquals(COLUMN_XXO.getValue(), result);
     }
 
     /*
@@ -51,8 +52,8 @@ public class FourRowColumnMoveExecutor_TwoToThree_BlueMove {
      */
     @Test
     public void move_OX_to_XOX() throws BoardStateException {
-        int result   = columnMoves.moveBlue(COLUMN_OX);
-        assertEquals(COLUMN_XOX, result);
+        int result   = columnMoves.moveBlue(COLUMN_OX.getValue());
+        assertEquals(COLUMN_XOX.getValue(), result);
     }
 
     /*
@@ -67,7 +68,7 @@ public class FourRowColumnMoveExecutor_TwoToThree_BlueMove {
      */
     @Test
     public void move_XX_to_XXX() throws BoardStateException {
-        int result   = columnMoves.moveBlue(COLUMN_XX);
-        assertEquals(COLUMN_XXX, result);
+        int result   = columnMoves.moveBlue(COLUMN_XX.getValue());
+        assertEquals(COLUMN_XXX.getValue(), result);
     }
 }

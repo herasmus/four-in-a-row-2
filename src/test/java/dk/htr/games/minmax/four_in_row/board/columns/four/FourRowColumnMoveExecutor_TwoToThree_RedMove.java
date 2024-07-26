@@ -4,7 +4,7 @@ import dk.htr.games.minmax.four_in_row.exceptions.BoardStateException;
 import dk.htr.games.minmax.four_in_row.exceptions.GameException;
 import org.junit.jupiter.api.Test;
 
-import static dk.htr.games.minmax.four_in_row.board.columns.four.FourRowColumns.*;
+import static dk.htr.games.minmax.four_in_row.board.columns.four.ValidFourFowColumns.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FourRowColumnMoveExecutor_TwoToThree_RedMove {
@@ -22,8 +22,8 @@ public class FourRowColumnMoveExecutor_TwoToThree_RedMove {
      */
     @Test
     public void move_OO_to_OOO() throws BoardStateException {
-        int result   = columnMoves.moveRed(COLUMN_OO);
-        assertEquals(COLUMN_OOO, result);
+        int result   = columnMoves.moveRed(COLUMN_OO.getValue());
+        assertEquals(COLUMN_OOO.getValue(), result);
     }
 
     /*
@@ -38,8 +38,8 @@ public class FourRowColumnMoveExecutor_TwoToThree_RedMove {
      */
     @Test
     public void move_OO_to_OXO() throws GameException {
-        int result   = columnMoves.moveRed(COLUMN_XO);
-        assertEquals(COLUMN_OXO, result);
+        int result   = columnMoves.moveRed(COLUMN_XO.getValue());
+        assertEquals(COLUMN_OXO.getValue(), result);
     }
 
     /*
@@ -54,8 +54,8 @@ public class FourRowColumnMoveExecutor_TwoToThree_RedMove {
      */
     @Test
     public void move_OX_to_OOX() throws GameException {
-        int result   = columnMoves.moveRed(COLUMN_OX);
-        assertEquals(COLUMN_OOX, result);
+        int result   = columnMoves.moveRed(COLUMN_OX.getValue());
+        assertEquals(COLUMN_OOX.getValue(), result);
     }
 
     /*
@@ -70,7 +70,7 @@ public class FourRowColumnMoveExecutor_TwoToThree_RedMove {
      */
     @Test
     public void move_XX_to_OXX() throws GameException {
-        int result   = columnMoves.moveRed(COLUMN_XX);
-        assertEquals(COLUMN_OXX, result);
+        int result   = columnMoves.moveRed(COLUMN_XX.getValue());
+        assertEquals(COLUMN_OXX.getValue(), result);
     }
 }
