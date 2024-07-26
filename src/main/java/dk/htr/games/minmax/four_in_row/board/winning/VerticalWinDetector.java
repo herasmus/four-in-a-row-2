@@ -15,8 +15,13 @@ public class VerticalWinDetector implements WinDetector {
         this.gameDimensions = gameDimensions;
     }
 
-    private WinResult getFourRowFourDiscWinner(long board, int move, boolean blueDisc) {
-        throw new NotImplementedException("FourRowThreeDiscWinner detection now implemented");
+    private WinResult getFourRowFourDiscWinner(long board, int move) {
+        int column = readByte(board, move-1);
+        if(column == COLUMN_4R_XXXX.getValue() || column == COLUMN_4R_OOOO.getValue()) {
+            return new WinResult(true, move, null);
+        } else {
+            return new WinResult(false, move, null);
+        }
     }
 
     private WinResult getFourRowThreeDiscWinner(long board, int move, boolean blueDisc) {

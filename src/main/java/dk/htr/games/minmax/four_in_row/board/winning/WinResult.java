@@ -1,4 +1,6 @@
 package dk.htr.games.minmax.four_in_row.board.winning;
 
-public record WinResult(boolean hasWinner) {
+import dk.htr.games.minmax.four_in_row.board.Position;
+
+public record WinResult(boolean hasWinner, int move, Position[] positions) {
 }
