@@ -1,7 +1,5 @@
 package dk.htr.games.minmax.four_in_row.bits;
 
-import dk.htr.games.minmax.four_in_row.board.BoardHandler;
-import dk.htr.games.minmax.four_in_row.board.BoardState;
 import dk.htr.games.minmax.four_in_row.exceptions.BitException;
 import org.junit.jupiter.api.Test;
 

@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class BoardStateLogger {
     @Autowired
-    private final BoardState boardState;
+    private final BoardStateAsciiRenderer boardState;
 
     static final Logger logger = LoggerFactory.getLogger(BoardStateLogger.class);
 

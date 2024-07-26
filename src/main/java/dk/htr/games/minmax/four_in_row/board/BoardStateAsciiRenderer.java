@@ -15,7 +15,7 @@ import static dk.htr.games.minmax.four_in_row.bits.BitOperations.readByte;
 @Setter
 @RequiredArgsConstructor
 @Component
-public class BoardState {
+public class BoardStateAsciiRenderer {
     private final GameDimensions dimensions;
     private final ColumnStringOperations columnOperations;
 

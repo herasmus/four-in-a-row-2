@@ -1,7 +1,7 @@
 package dk.htr.games.minmax.four_in_row.board.boardhandler;
 
 import dk.htr.games.minmax.four_in_row.board.BoardHandler;
-import dk.htr.games.minmax.four_in_row.board.BoardState;
+import dk.htr.games.minmax.four_in_row.board.BoardStateAsciiRenderer;
 import dk.htr.games.minmax.four_in_row.board.BoardStateLogger;
 import dk.htr.games.minmax.four_in_row.board.columns.ColumnStringOperations;
 import dk.htr.games.minmax.four_in_row.config.GameDimensions;
@@ -26,7 +26,7 @@ public class BoardHandlerAvailableSlotsTest {
     public void noAvailableSlots() throws GameException {
         // Constructing stuff manually - todo Dependency injection?
         BoardHandler boardHandler = new BoardHandler(gameDim2x4x3, columnOperations2x4x3);
-        BoardState boardState = new BoardState(gameDim2x4x3, columnOperations2x4x3);
+        BoardStateAsciiRenderer boardState = new BoardStateAsciiRenderer(gameDim2x4x3, columnOperations2x4x3);
         BoardStateLogger boardStateLogger = new BoardStateLogger(boardState);
 
         final long board = 0b11000011_11001101L;
@@ -56,7 +56,7 @@ public class BoardHandlerAvailableSlotsTest {
 
         // Constructing stuff manually - todo Dependency injection?
         BoardHandler boardHandler = new BoardHandler(gameDim5x4x3, columnOperations5x4x3);
-        BoardState boardState = new BoardState(gameDim5x4x3, columnOperations5x4x3);
+        BoardStateAsciiRenderer boardState = new BoardStateAsciiRenderer(gameDim5x4x3, columnOperations5x4x3);
         BoardStateLogger boardStateLogger = new BoardStateLogger(boardState);
 
         final long board = 0b00111010_00000001_00111110_10000000_11001101L;
@@ -72,7 +72,7 @@ public class BoardHandlerAvailableSlotsTest {
     public void maxAvailableSlots() throws GameException {
         // Constructing stuff manually - todo Dependency injection?
         BoardHandler boardHandler = new BoardHandler(gameDim5x4x3, columnOperations5x4x3);
-        BoardState boardState = new BoardState(gameDim5x4x3, columnOperations5x4x3);
+        BoardStateAsciiRenderer boardState = new BoardStateAsciiRenderer(gameDim5x4x3, columnOperations5x4x3);
         BoardStateLogger boardStateLogger = new BoardStateLogger(boardState);
 
         final long board = 0b01111010_00000001_00000010_01111110_00000101L;

@@ -1,18 +1,14 @@
 package dk.htr.games.minmax.four_in_row.board.columns.four;
 
-import dk.htr.games.minmax.four_in_row.board.columns.ColumnStringOperations;
-import dk.htr.games.minmax.four_in_row.config.GameDimensions;
 import dk.htr.games.minmax.four_in_row.exceptions.BoardStateException;
 import dk.htr.games.minmax.four_in_row.exceptions.GameException;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import static dk.htr.games.minmax.four_in_row.board.columns.four.ValidFourRowColumns.*;
+import static dk.htr.games.minmax.four_in_row.board.columns.four.FourRowColumns.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class FourRowColumnMoves_TwoToThree_RedMove {
-    FourRowColumnMoves columnMoves = new FourRowColumnMoves();
+public class FourRowColumnMoveExecutor_TwoToThree_RedMove {
+    FourRowColumnMoveExecutor columnMoves = new FourRowColumnMoveExecutor();
 
     /*
      * Initial state    End state

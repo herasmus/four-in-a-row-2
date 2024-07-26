@@ -1,19 +1,17 @@
 package dk.htr.games.minmax.four_in_row.board.columns.four;
 
-import dk.htr.games.minmax.four_in_row.board.columns.ColumnStringOperations;
-import dk.htr.games.minmax.four_in_row.config.GameDimensions;
 import dk.htr.games.minmax.four_in_row.exceptions.GameException;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static dk.htr.games.minmax.four_in_row.board.BinaryStringHelper.columnStateToBinaryString;
-import static dk.htr.games.minmax.four_in_row.board.columns.four.ValidFourRowColumns.*;
+import static dk.htr.games.minmax.four_in_row.board.BinaryStringHelper.columnToBinaryString;
+import static dk.htr.games.minmax.four_in_row.board.columns.four.FourRowColumns.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class FourRowColumnMoves_OneToTwo {
-    private final Logger logger = LoggerFactory.getLogger(FourRowColumnMoves_OneToTwo.class);
-    FourRowColumnMoves columnMoves = new FourRowColumnMoves();
+public class FourRowColumnMoveExecutor_OneToTwo {
+    private final Logger logger = LoggerFactory.getLogger(FourRowColumnMoveExecutor_OneToTwo.class);
+    FourRowColumnMoveExecutor columnMoves = new FourRowColumnMoveExecutor();
 
     /*
      * Initial state    End state
@@ -30,7 +28,7 @@ public class FourRowColumnMoves_OneToTwo {
         int expected = COLUMN_OO;
         int result   = columnMoves.moveRed(COLUMN_O);
         if(expected != result) {
-            String gotStr =columnStateToBinaryString(result);
+            String gotStr = columnToBinaryString(result);
             logger.error("Before: 0111_1110 -> Red (0) -> Expected result: 01111100  <-- Got: " + gotStr);
         }
         assertEquals(expected, result);

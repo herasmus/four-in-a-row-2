@@ -1,13 +1,14 @@
 package dk.htr.games.minmax.four_in_row.board.columns.four;
 
-import dk.htr.games.minmax.four_in_row.board.columns.ColumnMoves;
+import dk.htr.games.minmax.four_in_row.board.columns.ColumnMoveExecutor;
 import dk.htr.games.minmax.four_in_row.exceptions.BoardStateException;
 
-import static dk.htr.games.minmax.four_in_row.board.columns.four.ValidFourRowColumns.*;
+import static dk.htr.games.minmax.four_in_row.board.columns.four.FourRowColumns.*;
 
-public class FourRowColumnMoves implements ColumnMoves {
+public class FourRowColumnMoveExecutor implements ColumnMoveExecutor {
     final protected static int[]  RED_MOVES_4R;
     final protected static int[]  BLUE_MOVES_4R;
+    FourRowColumnValidator columnValidator = new FourRowColumnValidator();
 
     static {
         RED_MOVES_4R = new int[256];
@@ -63,18 +64,24 @@ public class FourRowColumnMoves implements ColumnMoves {
         BLUE_MOVES_4R[COLUMN_XXX] = COLUMN_4R_XXXX;
     }
 
-    public int moveBlue(int presentState) throws BoardStateException {
-        int moveResult = BLUE_MOVES_4R[presentState];
+    public int moveBlue(int column) throws BoardStateException {
+        if(!columnValidator.isValidColumn(column)) {
+            throw new BoardStateException("Invalid column " + column);
+        }
+        int moveResult = BLUE_MOVES_4R[column];
         if(moveResult == -1) {
-            throw new BoardStateException("Invalid move (blue). Column before move: " + presentState);
+            throw new BoardStateException("Invalid move (blue). Column before move: " + column);
         }
         return  moveResult;
     }
 
-    public int moveRed(int presentState) throws BoardStateException {
-        int moveResult = RED_MOVES_4R[presentState];
+    public int moveRed(int column) throws BoardStateException {
+        if(!columnValidator.isValidColumn(column)) {
+            throw new BoardStateException("Invalid column " + column);
+        }
+        int moveResult = RED_MOVES_4R[column];
         if(moveResult == -1) {
-            throw new BoardStateException("Invalid move (red). Column before move: " + presentState);
+            throw new BoardStateException("Invalid move (red). Column before move: " + column);
         }
         return  moveResult;
     }

@@ -2,11 +2,11 @@ package dk.htr.games.minmax.four_in_row.board.columns.four;
 
 import dk.htr.games.minmax.four_in_row.exceptions.GameException;
 import org.junit.jupiter.api.Test;
-import static dk.htr.games.minmax.four_in_row.board.columns.four.ValidFourRowColumns.*;
+import static dk.htr.games.minmax.four_in_row.board.columns.four.FourRowColumns.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class FourRowColumnMoves_EmptyToOne {
-    FourRowColumnMoves columnMoves = new FourRowColumnMoves();
+public class FourRowColumnMoveExecutor_EmptyToOne {
+    FourRowColumnMoveExecutor columnMoves = new FourRowColumnMoveExecutor();
 
     /*
      * Initial state    End state
