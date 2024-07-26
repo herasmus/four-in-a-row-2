@@ -24,15 +24,15 @@ public class VerticalWinDetector implements WinDetector {
         }
     }
 
-    private WinResult getFourRowThreeDiscWinner(long board, int move, boolean blueDisc) {
+    private WinResult getFourRowThreeDiscWinner(long board, int move) {
         throw new NotImplementedException("FourRowThreeDiscWinner detection now implemented");
     }
 
     private WinResult getFourRowWinner(long board, int move, boolean blueDisc) throws GameException {
         if(gameDimensions.getLengthToWin() == 4) {
-            return getFourRowFourDiscWinner(board, move, blueDisc);
+            return getFourRowFourDiscWinner(board, move);
         } else if(gameDimensions.getLengthToWin() == 3) {
-            return getFourRowThreeDiscWinner(board, move, blueDisc);
+            return getFourRowThreeDiscWinner(board, move);
         } else {
             throw new GameException("Only support 3 and 4 discs in a row to win at the moment");
         }
